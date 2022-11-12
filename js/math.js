@@ -1,0 +1,1 @@
+prompt('Hola a todos')
