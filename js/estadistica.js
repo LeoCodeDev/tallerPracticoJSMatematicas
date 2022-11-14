@@ -5,8 +5,12 @@ const mediana = document.querySelector("#mediana");
 const moda = document.querySelector("#moda");
 const btnEnviar = document.querySelector("#btnEnviar");
 btnEnviar.addEventListener("click", enviarSueldo);
-const btnCalcular = document.querySelector("#btnCalcular");
-btnCalcular.addEventListener("click", calcularPromedio);
+const btnCalcularPromedio = document.querySelector("#btnCalcularPromedio");
+const btnCalcularMediana = document.querySelector("#btnCalcularMediana");
+const btnCalcularModa = document.querySelector("#btnCalcularModa");
+btnCalcularPromedio.addEventListener("click", calcularPromedio);
+btnCalcularMediana.addEventListener("click", calcularMediana);
+btnCalcularModa.addEventListener("click", calcularModa);
 
 let arrSueldos = [];
 
@@ -42,4 +46,23 @@ function calcularMediana() {
   }
 }
 
-function calcularModa() {}
+function calcularModa() {
+    const cuenta = {}
+    
+    arrSueldos.forEach((sueldo) => {
+        if (cuenta[sueldo]) {
+            cuenta[sueldo] += 1
+        } else {
+            cuenta[sueldo] = 1
+        }
+    })
+    const cuentaArr = Object.entries(cuenta)
+    
+    cuentaArr.sort((a,b) => b[1] - a[1])
+    
+    if (cuentaArr[0][1] === cuentaArr[1][1]) {
+        moda.innerHTML = `No hay moda`
+    } else {
+        moda.innerHTML = `La moda es: ${cuentaArr[0][0]} y la cantidad de veces fue ${cuentaArr[0][1]}`
+    }
+}
