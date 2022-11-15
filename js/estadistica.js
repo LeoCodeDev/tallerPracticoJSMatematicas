@@ -14,22 +14,71 @@ btnCalcularModa.addEventListener("click", fnCalcularModa);
 
 let arrSueldos = [];
 
+class PlatziMath {
+  calcularPromedio(lista) {
+    const mediaAritmetica =
+      lista.reduce((ante, actu) => {
+        return ante + actu;
+      }) / lista.length;
+    return `El promedio es ${mediaAritmetica.toFixed(2)}`;
+  }
+
+  static esPar(arr) {
+    return !(arr.length % 2);
+  }
+
+  static calcularMediana(lista) {
+    let calculoMediana;
+    lista.sort((a, b) => a - b); // Aqui es donde ordeno el arreglo
+    if (esPar(lista)) {
+      valor1 = lista.length / 2;
+      valor2 = lista.length / 2 - 1;
+      calculoMediana = (lista[valor1] + lista[valor2]) / 2;
+      return `La mediana es ${calculoMediana}`;
+    } else {
+      calculoMediana = lista[Math.floor(lista.length / 2)];
+      return `La mediana es ${calculoMediana}`;
+    }
+  }
+
+  calcularModa(listas) {
+    const cuenta = {};
+
+    listas.forEach((lista) => {
+      if (cuenta[lista]) {
+        cuenta[lista] += 1;
+      } else {
+        cuenta[lista] = 1;
+      }
+    });
+    const cuentaArr = Object.entries(cuenta);
+
+    cuentaArr.sort((a, b) => b[1] - a[1]);
+
+    if (cuentaArr[0][1] === cuentaArr[1][1]) {
+      return `No hay moda`;
+    } else {
+      return `La moda es: ${cuentaArr[0][0]} y la cantidad de veces fue ${cuentaArr[0][1]}`;
+    }
+  }
+}
+
 function enviarSueldo() {
   arrSueldos.push(parseInt(salario.value));
   salarios.innerHTML += `${salario.value} `;
 }
 
-function calcularPromedio(lista){
+function calcularPromedio(lista) {
   const mediaAritmetica =
     lista.reduce((ante, actu) => {
       return ante + actu;
     }) / lista.length;
-    return `El promedio es ${mediaAritmetica.toFixed(2)}`;
-  }
-  
-  function fnCalcularPromedio() {
-    let outPut = calcularPromedio(arrSueldos)
-    promedio.innerHTML = outPut
+  return `El promedio es ${mediaAritmetica.toFixed(2)}`;
+}
+
+function fnCalcularPromedio() {
+  let outPut = calcularPromedio(arrSueldos);
+  promedio.innerHTML = outPut;
 }
 
 function esPar(arr) {
@@ -38,7 +87,7 @@ function esPar(arr) {
 
 function calcularMediana(lista) {
   let calculoMediana;
-  lista.sort((a,b)=> a-b) // Aqui es donde ordeno el arreglo
+  lista.sort((a, b) => a - b); // Aqui es donde ordeno el arreglo
   if (esPar(lista)) {
     valor1 = lista.length / 2;
     valor2 = lista.length / 2 - 1;
@@ -50,33 +99,33 @@ function calcularMediana(lista) {
   }
 }
 
-function fnCalcularMediana(){
-  let outPut = calcularMediana(arrSueldos)
-  mediana.innerHTML = outPut
+function fnCalcularMediana() {
+  let outPut = calcularMediana(arrSueldos);
+  mediana.innerHTML = outPut;
 }
 
 function calcularModa(listas) {
-    const cuenta = {}
-    
-    listas.forEach((lista) => {
-        if (cuenta[lista]) {
-            cuenta[lista] += 1
-        } else {
-            cuenta[lista] = 1
-        }
-    })
-    const cuentaArr = Object.entries(cuenta)
-    
-    cuentaArr.sort((a,b) => b[1] - a[1])
-    
-    if (cuentaArr[0][1] === cuentaArr[1][1]) {
-        return `No hay moda`
+  const cuenta = {};
+
+  listas.forEach((lista) => {
+    if (cuenta[lista]) {
+      cuenta[lista] += 1;
     } else {
-        return `La moda es: ${cuentaArr[0][0]} y la cantidad de veces fue ${cuentaArr[0][1]}`
+      cuenta[lista] = 1;
     }
+  });
+  const cuentaArr = Object.entries(cuenta);
+
+  cuentaArr.sort((a, b) => b[1] - a[1]);
+
+  if (cuentaArr[0][1] === cuentaArr[1][1]) {
+    return `No hay moda`;
+  } else {
+    return `La moda es: ${cuentaArr[0][0]} y la cantidad de veces fue ${cuentaArr[0][1]}`;
+  }
 }
 
-function fnCalcularModa(){
-  let outPut = calcularModa(arrSueldos)
-  moda.innerHTML = outPut
+function fnCalcularModa() {
+  let outPut = calcularModa(arrSueldos);
+  moda.innerHTML = outPut;
 }
