@@ -12,5 +12,3 @@ class AnalisisPlatzi {
 function enviarPersona() {
   consulta = persona.value;
 }
-
-console.log(arrSueldos)
