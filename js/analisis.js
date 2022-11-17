@@ -36,7 +36,6 @@ class AnalisisPlatzi {
       historicoAumento.push(porcentaje)
       medianaAumento = PlatziMath.calcularMediana(historicoAumento)
     }
-    debugger
     let proyeccionSalario = (medianaAumento * salarioActual) + salarioActual
     return proyeccionSalario
   }
@@ -49,8 +48,70 @@ class AnalisisPlatzi {
   }
 
   static medianaSalarioEmpresa(obj,emp,year){
-    const medianaEmpresas = PlatziMath.calcularMediana(obj[emp][year])
+    let medianaEmpresas
+    if (!obj[emp]) {
+      console.warn(`Empresa ${emp} no existe`)
+    } else if(!obj[emp][year]){
+      console.warn(`Empresa ${emp} no tuvo actividad en ${year}`)
+    }else{
+      medianaEmpresas = PlatziMath.calcularMediana(obj[emp][year])
+    }
     return medianaEmpresas
+  }
+
+  static medianaTotalEmpresa(obj,emp){
+    const medianasSalarios = []
+    const empConsultar = obj[emp]
+    for (let year in empConsultar) {
+      const medianaEmpresas = PlatziMath.calcularMediana(empConsultar[year])
+      medianasSalarios.push(medianaEmpresas)
+    }
+    return medianasSalarios 
+  }
+
+  static proyeccionSalarioEmpresasAnual(obj,emp){
+    const medianasSalarios = AnalisisPlatzi.medianaTotalEmpresa(obj,emp)
+    const salarioProyectado = AnalisisPlatzi.aumentoAnual(medianasSalarios)
+    return salarioProyectado
+  }
+
+  static salariosTotal(obj){
+    const arrSueldos = []
+    for(let persona of obj){
+      let trabajos = persona.trabajos
+      for(let payment of trabajos){
+          arrSueldos.push(payment.salario)
+      }
+    }
+    return arrSueldos
+  }
+
+  static medianaSalariosTotal(obj){
+    const arrMedianas = []
+    for(let persona of obj){
+      const arrSueldos = []
+      let trabajos = persona.trabajos
+      for(let trabajo of trabajos){
+        arrSueldos.push(trabajo.salario)
+      }
+      arrMedianas.push(PlatziMath.calcularMediana(arrSueldos))
+    }
+    return arrMedianas
+  }
+
+  static medianaTotal(obj){
+    const salariosGlobal = AnalisisPlatzi.salariosTotal(obj)
+    return PlatziMath.calcularMediana(salariosGlobal)
+    
+  }
+
+  static medianaTop10(obj){
+    const arrSueldos = AnalisisPlatzi.medianaSalariosTotal(obj)
+    arrSueldos.sort((a, b) => b - a)
+    const top10 = parseInt(Math.floor(arrSueldos.length * 0.1))
+    console.log(top10)
+    const arrTop10 = arrSueldos.slice(0,top10)
+    return arrTop10
   }
 }
 
