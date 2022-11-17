@@ -26,7 +26,7 @@ PlatziMath.calcularPromedio = function calcularPromedio(lista) {
     lista.reduce((ante, actu) => {
       return ante + actu;
     }) / lista.length;
-  return `El promedio es ${mediaAritmetica.toFixed(2)}`;
+  return mediaAritmetica.toFixed(2)
 }
 
 PlatziMath.esPar = function esPar(arr) {
@@ -40,10 +40,10 @@ PlatziMath.calcularMediana = function calcularMediana(lista) {
     valor1 = lista.length / 2;
     valor2 = lista.length / 2 - 1;
     calculoMediana = (lista[valor1] + lista[valor2]) / 2;
-    return `La mediana es ${calculoMediana}`;
+    return calculoMediana
   } else {
     calculoMediana = lista[Math.floor(lista.length / 2)];
-    return `La mediana es ${calculoMediana}`;
+    return calculoMediana
   }
 }
 
@@ -64,6 +64,6 @@ PlatziMath.calcularModa = function calcularModa(listas) {
   if (cuentaArr[0][1] === cuentaArr[1][1]) {
     return `No hay moda`;
   } else {
-    return `La moda es: ${cuentaArr[0][0]} y la cantidad de veces fue ${cuentaArr[0][1]}`;
+    return cuentaArr[0][0]
   }
 }
